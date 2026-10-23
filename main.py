@@ -11,8 +11,7 @@ app = FastAPI(title="FAST API 2INFO2")
 @app.exception_handler(MySQLError)
 def erro_de_banco(request: Request, exc: MySQLError):
     logging.getLogger("uvicorn.error").error("Erro no BD: %s", exc)
-    return JSONResponse(
-        
+    return JSONResponse(   
         status_code=500,        
         content={"detail": "Não foi possível acessar o BD."},
     )
@@ -22,7 +21,7 @@ def representar_produto(produto):
         "id": produto["id"],
         "nome": produto["nome"],
         "quantidade": produto["quantidade"],
-        "preco": format(produto["preco"], "2f"),  
+        "preco": format(produto["preco"], ".2f"),  
     }
 @app.get("/produtos")
 def listar_produtos():
